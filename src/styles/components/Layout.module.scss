@@ -1,0 +1,15 @@
+.layout {
+  display: flex;
+  .layout_sidebar {
+    position: sticky;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    overflow-y: auto;
+    border-right: solid 1px #eee;
+  }
+  .layout_content {
+    min-width: 375px;
+    flex: 1;
+  }
+}
