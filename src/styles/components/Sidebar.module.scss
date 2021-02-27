@@ -9,6 +9,17 @@
   padding-left: 20px;
   text-decoration: none;
   list-style: none;
+  animation: fadeIn ease 1s;
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      padding-left: 0;
+    }
+    100% {
+      opacity: 1;
+      padding-left: 20px;
+    }
+  }
   .sidebar_nav_item {
     height: 75px;
     line-height: 75px;

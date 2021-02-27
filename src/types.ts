@@ -3,4 +3,14 @@ export type NavItem = {
   as?: string;
   href: string;
 };
-export type NavItems = NavItem[]
+export type NavItems = NavItem[];
+
+export type Artist = {
+  name: string;
+  img: string;
+};
+
+export type Music = {
+  name: string;
+  img: string;
+};

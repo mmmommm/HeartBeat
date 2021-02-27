@@ -1,4 +1,10 @@
+.index {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .font {
-  font-size: 48px;
+  font-size: 36px;
   font-weight: bold;
+  margin: 20px 0 0 20px;
 }
