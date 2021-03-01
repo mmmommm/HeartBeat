@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "../styles/pages/index.module.scss";
 import { Layout } from "../components/Layout";
-import { ArtistInfo } from "../components/Artist";
-import { MusicInfo } from "../components/Music";
+import { ArtistInfo } from "../components/ArtistInfo";
+import { MusicInfo } from "../components/MusicInfo";
 
 const artists = [
   {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
