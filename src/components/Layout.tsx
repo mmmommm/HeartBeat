@@ -10,18 +10,18 @@ const navItems = [
   },
   {
     name: "Search",
-    as: "/search",
-    href: "/search"
+    as: "/Search",
+    href: "/Search"
   },
   {
     name: "Request",
-    as: "/request",
-    href: "/request"
+    as: "/Request",
+    href: "/Request"
   },
   {
     name: "Language",
-    as: "/language",
-    href: "/language"
+    as: "/Language",
+    href: "/Language"
   },
 ]
 
