@@ -3,6 +3,7 @@
   font-size: 36px;
   font-weight: bold;
   width: 250px;
+  color: #3e1300;
 }
 .sidebar_item {
   width: 100%;
@@ -29,15 +30,15 @@
       font-size: 24px;
       font-weight: bold;
       font-family: 'Cormorant Garamond', serif;
-      color: #CED4DB;
+      color: #3e1300;
       transition: all 1s;
       &:hover {
-        color: #212121;
+        color: #e65b20;
         padding-left: 20px;
       }
     }
     .active {
-      color: #212121;
+      color: #e65b20;
       position: relative;
       padding-left: 20px;
       &::before {
@@ -48,7 +49,7 @@
         height: 1px;
         top: 12px;
         left: -15px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid #e65b20;
       }
     }
   }
