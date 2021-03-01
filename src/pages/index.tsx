@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/pages/index.module.scss";
 import { Layout } from "../components/Layout";
 import { ArtistInfo } from "../components/ArtistInfo";
-import { MusicInfo } from "../components/MusicInfo";
+import { SongInfo } from "../components/SongInfo";
 
 const artists = [
   {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
@@ -12,12 +12,12 @@ const artists = [
   {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
 ]
 
-const musics = [
-  {name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},
-  {name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},
-  {name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},
-  {name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},
-  {name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},{name: "サターン",img: "sample.png"},
+const songs = [
+  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
+  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
+  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
+  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
+  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
 ]
 
 const Index: React.FC = () => {
@@ -37,9 +37,9 @@ const Index: React.FC = () => {
         <div>
           <p className={styles.font}>Music index</p>
           <div className={styles.index}>
-            {musics.map((music, i) => {
+            {songs.map((song, i) => {
               return (
-                <MusicInfo music={music} key={i} />
+                <SongInfo song={song} key={i} />
               )
             })}
           </div>

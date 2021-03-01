@@ -10,7 +10,8 @@ export type Artist = {
   img: string;
 };
 
-export type Music = {
+export type Song = {
+  artist: string;
   name: string;
   img: string;
 };

@@ -7,10 +7,10 @@ export const ArtistInfo: React.FC<{ artist: Artist }> = ({ artist }) => {
   return (
     <Link
       href={{
-        pathname: `/Artist/${artist.name}`,
+        pathname: `/${artist.name}`,
         query: { name: artist.name }
       }}
-      as={`/Artist/${artist.name}`}
+      as={`/${artist.name}`}
       passHref
     >
 

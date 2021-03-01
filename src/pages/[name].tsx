@@ -1,7 +1,7 @@
 import * as React from "react";
-import styles from "../../styles/pages/Artist.module.scss";
+import styles from "../styles/pages/Artist.module.scss";
 // import { NextPage, GetServerSideProps } from "next";
-import { Layout } from "../../components/Layout";
+import { Layout } from "../components/Layout";
 import { Artist } from "@types";
 import { useRouter } from "next/router";
 
