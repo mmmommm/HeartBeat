@@ -8,14 +8,16 @@ const Request: React.FC = () => {
       <Layout>
         <div className={styles.container}>
           <form action="">
-            <label htmlFor="name">あなたの名前</label><br/>
-            <input type="text" id="name" placeholder="名前を入力してください" required/><br/>
-            <label htmlFor="requestmusic">アーティスト名/楽曲名</label><br/>
-            <input type="text" id="requestmusic" placeholder="アーティスト名もしくは楽曲名を入力してください" /><br/>
-            <button>
-              送信
-            </button>
-          </form>　
+            <div className={styles.wrapper}>
+              <label htmlFor="name">あなたの名前</label><br/>
+              <input type="text" id="name" placeholder="名前を入力してください" required/><br/>
+              <label htmlFor="request_music">アーティスト名/楽曲名</label><br/>
+              <input type="text" id="request_music" placeholder="アーティスト名もしくは楽曲名を入力してください" /><br/>
+              <button type="submit">
+                送信
+              </button>
+            </div>
+          </form>
         </div>
       </Layout>
     </>
