@@ -1,29 +1,29 @@
 import React from "react";
 import { Sidebar } from "./Sidebar";
-import styles from "../styles/components/Layout.module.scss"
+import styles from "../styles/components/Layout.module.scss";
 
 const navItems = [
   {
     name: "Top",
     as: "/",
-    href: "/"
+    href: "/",
   },
   {
     name: "Search",
     as: "/Search",
-    href: "/Search"
+    href: "/Search",
   },
   {
     name: "Request",
     as: "/Request",
-    href: "/Request"
+    href: "/Request",
   },
   {
     name: "Language",
     as: "/Language",
-    href: "/Language"
+    href: "/Language",
   },
-]
+];
 
 export const Layout = ({ children }) => {
   return (
@@ -33,6 +33,5 @@ export const Layout = ({ children }) => {
       </aside>
       <main className={styles.layout_content}>{children}</main>
     </div>
-
   );
 };

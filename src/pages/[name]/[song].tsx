@@ -6,7 +6,7 @@ import { Song } from "@types";
 import { useRouter } from "next/router";
 
 const Page: React.FC<{ song: Song }> = ({ song }) => {
-  const router = useRouter()
+  const router = useRouter();
   const song_name = router.query.song;
 
   return (
