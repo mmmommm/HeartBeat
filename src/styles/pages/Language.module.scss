@@ -13,5 +13,9 @@
     appearance: none;
     font-size: 48px;
     color: #3e1300;
+    transition: all 1s;
+    &:hover {
+      color: #e65b20;
+    }
   }
 }
