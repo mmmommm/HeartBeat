@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"fmt"
 
 	"github.com/ant0ine/go-json-rest/rest"
 	_ "github.com/go-sql-driver/mysql"
@@ -36,7 +37,13 @@ func getEnv(k string) string {
 
 func (i *Impl) initDB() {
 	var err error
-	i.DB, err = gorm.Open("mysql", "root:9434Yakitori@/go_sample")
+	var (
+		dbUser  = getenv("DB_USER")
+		dbPwd   = getenv("DB_PASS")
+		dbName  = getenv("DB_NAME")
+	)
+	dsn := fmt.Sprintf("%s:%s@/%s", dbUser, dbPwd, dbName)
+	i.DB, err = gorm.Open("mysql", dsn)
 	if err != nil {
 		log.Fatalf("error: %s\n", err)
 	}
