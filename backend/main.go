@@ -1,29 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"fmt"
 
-	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/mmmommm/HeartBeat/domain"
+	"github.com/mmmommm/HeartBeat/wire"
+
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
+	echo "github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-type User struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
-	Age  int    `json:"age"`
-	Sex  bool   `json:"sex"`
-}
-
-type Impl struct {
-	DB *gorm.DB
-}
-
-func getEnv(k string) string {
+func mustGetEnv(k string) string {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("error loading .env file")
@@ -35,116 +29,53 @@ func getEnv(k string) string {
 	return v
 }
 
-func (i *Impl) initDB() {
+func initDB() *gorm.DB {
 	var err error
 	var (
-		dbUser  = getenv("DB_USER")
-		dbPwd   = getenv("DB_PASS")
-		dbName  = getenv("DB_NAME")
+		dbUser = mustGetEnv("DB_USER")
+		dbPwd  = mustGetEnv("DB_PASS")
+		dbName = mustGetEnv("DB_NAME")
 	)
-	dsn := fmt.Sprintf("%s:%s@/%s", dbUser, dbPwd, dbName)
-	i.DB, err = gorm.Open("mysql", dsn)
+	dns := fmt.Sprintf("%s:%s@/%s", dbUser, dbPwd, dbName)
+	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
+	db.Set("gorm:table_options", "ENGINE=InnoDB")
 	if err != nil {
 		log.Fatalf("error: %s\n", err)
 	}
-	i.DB.LogMode(true)
-}
-
-func (i *Impl) initSchema() {
-	i.DB.AutoMigrate(&User{})
+	return db
 }
 
 func main() {
-	i := Impl{}
-	i.initDB()
-	i.initSchema()
+	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
-	api := rest.NewApi()
-	api.Use(rest.DefaultDevStack...)
-	router, err := rest.MakeRouter(
-		rest.Get("/users", i.GetAllUsers),
-		rest.Post("/users", i.PostUser),
-		rest.Get("/users/:id", i.GetUser),
-		rest.Put("/users/:id", i.PutUser),
-		rest.Delete("/users/:id", i.DeleteUser),
-	)
-	if err != nil {
-		log.Fatal(err)
+	var db *gorm.DB
+	db = initDB()
+	// e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	// 	AllowOrigins: []string{"http://localhost:3000"},
+	// 	AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+	// }))
+	artistAPI := wire.InitArtistAPI(db)
+
+	db.AutoMigrate(&domain.Artist{})
+	// db.AutoMigrate(&domain.Song{})
+
+	e.GET("/", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]string{"ping": "pong"})
+	})
+
+	// artist
+	e.GET("/artist", artistAPI.GetAllArtist)
+	// e.GET("/artist/statistics", artistAPI.GetStatistics)
+	// e.POST("/artist", artistAPI.CreateArtist)
+	// e.POST("/artists", artistAPI.ExportArtist)
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		log.Printf("Defaulting to port %s", port)
 	}
-
-	log.Printf("server started.")
-	api.SetApp(router)
-	log.Fatal(http.ListenAndServe(":8080", api.MakeHandler()))
-}
-
-// countriesテーブル内のデータ全出力
-func (i *Impl) GetAllUsers(w rest.ResponseWriter, r *rest.Request) {
-    users := []User{}
-    i.DB.Find(&users)
-    w.WriteJson(&users)
-}
-
-// パスパラメータ:idの国の該当データを出力
-func (i *Impl) GetUser(w rest.ResponseWriter, r *rest.Request) {
-    id := r.PathParam("id")
-    user := User{}
-    if i.DB.Find(&user, id).Error != nil {
-        rest.NotFound(w, r)
-        return
-    }
-    w.WriteJson(&user)
-}
-
-// json形式のデータをPOST {name:国名}
-func (i *Impl) PostUser(w rest.ResponseWriter, r *rest.Request) {
-    user := User{}
-    err := r.DecodeJsonPayload(&user)
-    if err != nil {
-        rest.Error(w, err.Error(), http.StatusInternalServerError)
-    }
-    err = i.DB.Save(&user).Error
-    if err != nil {
-        rest.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    w.WriteJson(&user)
-}
-
-// パスパラメータ:idの国の該当データのNameを変更し出力
-func (i *Impl) PutUser(w rest.ResponseWriter, r *rest.Request) {
-
-    id := r.PathParam("id")
-    user := User{}
-    if i.DB.First(&user, id).Error != nil {
-        rest.NotFound(w, r)
-        return
-    }
-    updated := User{}
-    if err := r.DecodeJsonPayload(&updated); err != nil {
-        rest.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-
-    user.Name = updated.Name
-
-    if err := i.DB.Save(&user).Error; err != nil {
-        rest.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    w.WriteJson(&user)
-}
-
-// パスパラメータ:idの国の該当データを削除
-func (i *Impl) DeleteUser(w rest.ResponseWriter, r *rest.Request) {
-    id := r.PathParam("id")
-    user := User{}
-    if i.DB.First(&user, id).Error != nil {
-        rest.NotFound(w, r)
-        return
-    }
-    if err := i.DB.Delete(&user).Error; err != nil {
-        rest.Error(w, err.Error(), http.StatusInsufficientStorage)
-        return
-    }
-    w.WriteHeader(http.StatusOK)
+	log.Printf("Listening on port %s", port)
+	e.Logger.Fatal(e.Start(":" + port))
 }
