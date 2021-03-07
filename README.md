@@ -1,10 +1,11 @@
 # HeartBeat client  
   
 ## 使用技術  
-  
+### frontend 
 - next  
 - typescript  
-- css modules  
+- css modules
+### backend  
 ## 機能  
 - 一覧表示  
 - 希望を送信するフォーム  
