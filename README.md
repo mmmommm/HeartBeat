@@ -6,6 +6,7 @@
 - typescript  
 - css modules
 ### backend  
+- go
 ## 機能  
 - 一覧表示  
 - 希望を送信するフォーム  
