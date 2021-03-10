@@ -4,14 +4,9 @@ import { Layout } from "../components/Layout";
 import { ArtistInfo } from "../components/ArtistInfo";
 import { SongInfo } from "../components/SongInfo";
 import { Loading } from "../components/Loading";
+import axios from "axios";
+import { Artists } from "../types";
 
-const artists = [
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-];
 
 const songs = [
   {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
@@ -23,6 +18,14 @@ const songs = [
 
 const Index: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [artists, setArtists] = React.useState<Artists>([]);
+  React.useEffect(() => {
+    axios.get('http://localhost:8080/v1/artist')
+      .then((res) => {
+        const data = res.data
+        setArtists(data)
+      })
+  }, []);
   setTimeout(() => {
     setIsLoading(false)
   }, 2000);
