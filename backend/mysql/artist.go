@@ -30,21 +30,21 @@ func (r *ArtistRepositoryImpl) Insert(artist domain.Artist) (int, error) {
 
 // SelectByID is
 func (r *ArtistRepositoryImpl) SelectByID(id int) (domain.Artist, error) {
-	var artist domain.Artist
-	tx := r.db.First(&artist, id)
-	return artist, tx.Error
+	var artistRepository domain.Artist
+	tx := r.db.First(&artistRepository, id)
+	return artistRepository, tx.Error
 }
 
 // SelectAll is
 func (r *ArtistRepositoryImpl) SelectAll() ([]domain.Artist, error) {
-	var jobSalaries []domain.Artist
-	result := r.db.Order("create_data_js desc").Find(&jobSalaries)
-	return jobSalaries, result.Error
+	var artistRepository []domain.Artist
+	result := r.db.Find(&artistRepository)
+	return artistRepository, result.Error
 }
 
 // SelectByName is
 func (r *ArtistRepositoryImpl) SelectByName(name string) ([]domain.Artist, error) {
-	var jobSalaries []domain.Artist
-	result := r.db.Order("create_data_js desc").Where("name = ?", name).Find(&jobSalaries)
-	return jobSalaries, result.Error
+	var artistRepository []domain.Artist
+	result := r.db.Where("name = ?", name).Find(&artistRepository)
+	return artistRepository, result.Error
 }

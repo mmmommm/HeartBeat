@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "../styles/components/Artist.module.scss";
-import { Artist } from "@../frontend/src/types";
+import { Artist } from "../types";
 
 export const ArtistInfo: React.FC<{ artist: Artist }> = ({ artist }) => {
   return (
@@ -17,6 +17,7 @@ export const ArtistInfo: React.FC<{ artist: Artist }> = ({ artist }) => {
         <>
           <img src={artist.img} alt="artist" />
           <p>{artist.name}</p>
+          <p>{artist.detail}</p>
         </>
       </div>
     </Link>

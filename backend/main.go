@@ -52,10 +52,11 @@ func main() {
 
 	var db *gorm.DB
 	db = initDB()
-	// e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-	// 	AllowOrigins: []string{"http://localhost:3000"},
-	// 	AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
-	// }))
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:3000/en-US", "http://localhost:3000"},
+		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+	}))
+
 	artistAPI := wire.InitArtistAPI(db)
 
 	db.AutoMigrate(&domain.Artist{})
@@ -66,7 +67,7 @@ func main() {
 	})
 
 	// artist
-	e.GET("/artist", artistAPI.GetAllArtist)
+	e.GET("/v1/artist", artistAPI.GetAllArtist)
 	// e.GET("/artist/statistics", artistAPI.GetStatistics)
 	// e.POST("/artist", artistAPI.CreateArtist)
 	// e.POST("/artists", artistAPI.ExportArtist)
