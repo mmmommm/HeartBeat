@@ -7,7 +7,7 @@ export type NavItems = NavItem[];
 
 export type Artist = {
   name: string;
-  content: string;
+  content?: string;
   img: string;
 };
 
@@ -16,6 +16,6 @@ export type Artists = Artist[]
 export type Song = {
   artist: string;
   name: string;
-  content: string;
+  content?: string;
   img: string;
 };
