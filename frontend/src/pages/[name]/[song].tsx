@@ -31,8 +31,7 @@ const Page: NextPage<Props> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async({ params }) => {
-  const name = params.name as string;
-  console.log(name)
+  const name = params.song as string;
   const song = getSong(name);
   if (!song) {
     console.error("song not found")

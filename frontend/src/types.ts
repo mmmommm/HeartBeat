@@ -17,12 +17,14 @@ export type Song = {
   artist: string;
   name: string;
   content?: string;
-  img: string;
+  img?: string;
 };
+
+export type Songs = Song[]
 
 export type Request = {
   name: string;
-  artist: string;
-  song: string;
-  content: string;
+  artist?: string;
+  song?: string;
+  content?: string;
 }
