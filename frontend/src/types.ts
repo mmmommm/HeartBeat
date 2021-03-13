@@ -7,7 +7,7 @@ export type NavItems = NavItem[];
 
 export type Artist = {
   name: string;
-  detail: string;
+  content?: string;
   img: string;
 };
 
@@ -16,6 +16,15 @@ export type Artists = Artist[]
 export type Song = {
   artist: string;
   name: string;
-  detail: string;
-  img: string;
+  content?: string;
+  img?: string;
 };
+
+export type Songs = Song[]
+
+export type Request = {
+  name: string;
+  artist?: string;
+  song?: string;
+  content?: string;
+}

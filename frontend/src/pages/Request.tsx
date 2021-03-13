@@ -3,18 +3,24 @@ import styles from "../styles/pages/Request.module.scss";
 import { Layout } from "../components/Layout";
 
 const Request: React.FC = () => {
+  const sendRequest = () => {
+
+  }
   return (
     <>
       <Layout>
+        <div className={styles.header}>
+          <header>If you have an article request, please send it here.</header>
+        </div>
         <div className={styles.container}>
-          <form action="">
+          <form action="http://localhosta:8080/v1/request" method="POST">
             <div className={styles.wrapper}>
-              <label htmlFor="name">あなたの名前</label><br/>
-              <input type="text" id="name" placeholder="名前を入力してください" required/><br/>
-              <label htmlFor="request_music">アーティスト名/楽曲名</label><br/>
-              <input type="text" id="request_music" placeholder="アーティスト名もしくは楽曲名を入力してください" /><br/>
+              <label htmlFor="name">Your name</label><br/>
+              <input type="text" id="name" placeholder="Please enter your name" required/><br/>
+              <label htmlFor="request_music">artist/song name</label><br/>
+              <input type="text" id="request_music" placeholder="Please enter request artist or song" required/><br/>
               <button type="submit">
-                送信
+                send
               </button>
             </div>
           </form>

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "../styles/components/Music.module.scss";
-import { Song } from "@../frontend/src/types";
+import { Song } from "../types";
 
 export const SongInfo: React.FC<{ song: Song }> = ({ song }) => {
   return (
@@ -15,6 +15,7 @@ export const SongInfo: React.FC<{ song: Song }> = ({ song }) => {
     >
       <div className={styles.music_card}>
         <img src={song.img} alt="song" />
+        <p>{song.artist}</p>
         <p>{song.name}</p>
       </div>
     </Link>
