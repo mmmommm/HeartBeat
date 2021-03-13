@@ -17,7 +17,7 @@ export const ArtistInfo: React.FC<{ artist: Artist }> = ({ artist }) => {
         <>
           <img src={artist.img} alt="artist" />
           <p>{artist.name}</p>
-          <p>{artist.detail}</p>
+          <p>{artist.content}</p>
         </>
       </div>
     </Link>

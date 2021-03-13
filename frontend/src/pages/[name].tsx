@@ -1,24 +1,50 @@
 import * as React from "react";
+import { NextPage, GetServerSideProps } from 'next';
 import styles from "../styles/pages/Artist.module.scss";
-// import { NextPage, GetServerSideProps } from "next";
 import { Layout } from "../components/Layout";
-import { Artist } from "@../frontend/src/types";
-import { useRouter } from "next/router";
+import { Artist } from "../types";
+import { getArtist } from "../utils/api/artists";
+import { markdownToHtml } from "../utils/index";
 
-const Page: React.FC<{ artist: Artist }> = ({ artist }) => {
-  const router = useRouter()
-  const artist_name = router.query.name;
+type Props = {
+  artist: Artist
+}
+
+const Page: NextPage<Props> = (props) => {
+  const { artist } = props
 
   return (
     <Layout>
       <header className={styles.header}>
-        <p>{artist_name}</p>
+        <p>{artist.name}</p>　
         <article>
-          zutomayo is a japanese artist. full name is zuttomayonakadeiinoni.
+          <div
+            dangerouslySetInnerHTML={{
+              __html: artist.content || '✍ 本文を入力してください',
+            }}
+          />
         </article>
       </header>
     </Layout>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async({ params }) => {
+  const name = params.name as string;
+  const artist = getArtist(name);
+  if (!artist) {
+    console.error("artist not found")
+  }
+  const content = markdownToHtml(artist.content);
+  return {
+    props: {
+      artist: {
+        ...artist,
+        content,
+        name
+      }
+    }
+  }
+}
 
 export default Page;
