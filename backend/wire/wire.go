@@ -14,3 +14,10 @@ func InitArtistAPI(db *gorm.DB) handler.ArtistHandler {
 	artistHandler := handler.NewArtistHandler(artistApplication)
 	return artistHandler
 }
+
+func InitRequestAPI(db *gorm.DB) handler.RequestHandler {
+	requestRepository := mysql.NewRequestRepositoryImpl(db)
+	requestApplication := app.NewRequestApplication(requestRepository)
+	requestHandler := handler.NewRequestHandler(requestApplication)
+	return requestHandler
+}

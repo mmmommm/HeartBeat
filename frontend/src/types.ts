@@ -19,3 +19,10 @@ export type Song = {
   content?: string;
   img: string;
 };
+
+export type Request = {
+  name: string;
+  artist: string;
+  song: string;
+  content: string;
+}

@@ -58,8 +58,10 @@ func main() {
 	}))
 
 	artistAPI := wire.InitArtistAPI(db)
+	requestAPI := wire.InitRequestAPI(db)
 
 	db.AutoMigrate(&domain.Artist{})
+	db.AutoMigrate(&domain.Request{})
 	// db.AutoMigrate(&domain.Song{})
 
 	e.GET("/", func(c echo.Context) error {
@@ -71,6 +73,8 @@ func main() {
 	// e.GET("/artist/statistics", artistAPI.GetStatistics)
 	// e.POST("/artist", artistAPI.CreateArtist)
 	// e.POST("/artists", artistAPI.ExportArtist)
+	// request
+	e.POST("v1/request", requestAPI.CreateRequest)
 
 	port := os.Getenv("PORT")
 	if port == "" {
