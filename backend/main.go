@@ -58,11 +58,12 @@ func main() {
 	}))
 
 	artistAPI := wire.InitArtistAPI(db)
+	songAPI := wire.InitSongAPI(db)
 	requestAPI := wire.InitRequestAPI(db)
 
 	db.AutoMigrate(&domain.Artist{})
 	db.AutoMigrate(&domain.Request{})
-	// db.AutoMigrate(&domain.Song{})
+	db.AutoMigrate(&domain.Song{})
 
 	e.GET("/", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string{"ping": "pong"})
@@ -73,6 +74,10 @@ func main() {
 	// e.GET("/artist/statistics", artistAPI.GetStatistics)
 	// e.POST("/artist", artistAPI.CreateArtist)
 	// e.POST("/artists", artistAPI.ExportArtist)
+
+	// song
+	e.GET("/v1/song", songAPI.GetAllSong)
+
 	// request
 	e.POST("v1/request", requestAPI.CreateRequest)
 
