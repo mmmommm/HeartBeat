@@ -79,6 +79,7 @@ func main() {
 	e.GET("/v1/song", songAPI.GetAllSong)
 
 	// request
+	e.GET("v1/request", requestAPI.GetAllRequest)
 	e.POST("v1/request", requestAPI.CreateRequest)
 
 	port := os.Getenv("PORT")
