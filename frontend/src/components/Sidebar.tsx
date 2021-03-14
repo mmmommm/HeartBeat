@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { NavItem, NavItems } from "@../frontend/src/types";
+import { NavItem, NavItems } from "../types";
 import styles from "../styles/components/Sidebar.module.scss";
 
 const SidebarNavItem: React.FC<{ navItem: NavItem }> = ({ navItem }) => {
@@ -16,7 +16,7 @@ const SidebarNavItem: React.FC<{ navItem: NavItem }> = ({ navItem }) => {
   );
 };
 
-const SidebarHeader: React.FC = () => {
+const SidebarHeader: React.VFC = () => {
   return (
     <header className={styles.header}>
       <Link href="/" passHref>

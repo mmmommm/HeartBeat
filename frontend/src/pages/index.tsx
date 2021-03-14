@@ -27,7 +27,7 @@ const Index: React.FC = () => {
   }, []);
   setTimeout(() => {
     setIsLoading(false)
-  }, 2000);
+  }, 1000);
   return (
     <>
       <Layout>
