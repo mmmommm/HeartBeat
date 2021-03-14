@@ -1,10 +1,12 @@
 .search {
+  text-align: center;
   width: 100%;
   form {
-    margin: 10px 0 0 30px;
+    margin-top: 30px;
     input {
       border-radius: 10px;
-      height: 30px;
+      height: 50px;
+      width: 300px;
     }
   }
 }

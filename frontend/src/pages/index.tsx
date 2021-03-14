@@ -6,6 +6,8 @@ import { SongInfo } from "../components/SongInfo";
 import { Loading } from "../components/Loading";
 import axios from "axios";
 import { Artists, Songs } from "../types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Index: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -35,6 +37,12 @@ const Index: React.FC = () => {
           <Loading />
         ) : (
           <>
+            <div className={styles.search}>
+              <form action="/Search">
+                <FontAwesomeIcon icon={faSearch} />
+                <input type="text" placeholder="Search" />
+              </form>
+            </div>
             <div>
               <p className={styles.font}>Artist index</p>
               <div className={styles.index}>
@@ -46,7 +54,7 @@ const Index: React.FC = () => {
               </div>
             </div>
             <div>
-              <p className={styles.font}>Music index</p>
+              <p className={styles.font}>Song index</p>
               <div className={styles.index}>
                 {songs.map((song, i) => {
                   return (
