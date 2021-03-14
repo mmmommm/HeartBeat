@@ -65,18 +65,13 @@ func main() {
 	db.AutoMigrate(&domain.Request{})
 	db.AutoMigrate(&domain.Song{})
 
-	e.GET("/", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, map[string]string{"ping": "pong"})
-	})
-
 	// artist
 	e.GET("/v1/artist", artistAPI.GetAllArtist)
-	// e.GET("/artist/statistics", artistAPI.GetStatistics)
-	// e.POST("/artist", artistAPI.CreateArtist)
-	// e.POST("/artists", artistAPI.ExportArtist)
+	e.GET("/v1/artist/:name", artistAPI.GetArtistByName)
 
 	// song
 	e.GET("/v1/song", songAPI.GetAllSong)
+	e.GET("/v1/song/:name", songAPI.GetSongByName)
 
 	// request
 	e.GET("v1/request", requestAPI.GetAllRequest)
