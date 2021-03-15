@@ -8,11 +8,11 @@ const navItems = [
     as: "/",
     href: "/",
   },
-  // {
-  //   name: "Search",
-  //   as: "/Search",
-  //   href: "/Search",
-  // },
+  {
+    name: "Search",
+    as: "/Search",
+    href: "/Search",
+  },
   {
     name: "Request",
     as: "/Request",

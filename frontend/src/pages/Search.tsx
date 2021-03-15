@@ -6,17 +6,30 @@ import { SongInfo } from "../components/SongInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Artists, Songs } from "../types";
+import axios from "axios";
 
-const Search: React.VFC = () => {
+const Search: React.FC<{ searchTerm: string }> = ({ searchTerm }) => {
+  const [value, setValue] = React.useState("");
   const [filteredArtists, setFilteredArtists] = React.useState<Artists>([]);
   const [filteredSongs, setFilteredSongs] = React.useState<Songs>([]);
+  const Search = () => {
+    axios.get(`http://localhost:8080/v1/artist/${value}`)
+      .then((res) => setFilteredArtists(res.data))
+      .catch(() => {
+        axios.get(`http://localhost:8080/v1/song/${value}`)
+          .then((res) => setFilteredSongs(res.data))
+      })
+  }
+  const updateValue = (ev) => {
+    setValue(ev.target.value)
+  }
   return (
     <>
       <Layout>
         <div className={styles.search}>
-          <form action="/">
+          <form>
             <FontAwesomeIcon icon={faSearch} />
-            <input type="text" placeholder="Search" />
+            <input type="text" placeholder="Search" value={value} onChange={updateValue} />
           </form>
         </div>
         <div>

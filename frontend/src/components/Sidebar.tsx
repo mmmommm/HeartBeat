@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { SearchForm } from "../components/SearchForm";
 import { NavItem, NavItems } from "../types";
 import styles from "../styles/components/Sidebar.module.scss";
 
@@ -30,6 +31,7 @@ export const Sidebar: React.FC<{ navItems: NavItems }> = ({ navItems }) => {
   return (
     <>
       <SidebarHeader />
+      <SearchForm />
       <ul className={styles.sidebar_item}>
         {navItems.map((navItem, i) => {
           return <SidebarNavItem navItem={navItem} key={i} />;
