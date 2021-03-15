@@ -48,5 +48,5 @@ func (h *SongHandler) GetSongByName(c echo.Context) error {
 		}
 		return c.JSON(http.StatusOK, response)
 	}
-	return error
+	return nil
 }

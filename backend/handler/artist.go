@@ -35,3 +35,18 @@ func (h *ArtistHandler) GetAllArtist(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, Artist)
 }
+
+func (h *ArtistHandler) GetArtistByName(c echo.Context) error {
+	name := c.QueryParam("name")
+	if name != "" {
+		response, err := h.artistApplication.GetByName(name)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err)
+		}
+		if len(response) == 0 {
+			return c.JSON(http.StatusNotFound, "not found")
+		}
+		return c.JSON(http.StatusOK, response)
+	}
+	return nil
+}
