@@ -3,8 +3,6 @@ import styles from "../styles/pages/Search.module.scss";
 import { Layout } from "../components/Layout";
 import { ArtistInfo } from "../components/ArtistInfo";
 import { SongInfo } from "../components/SongInfo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Artists, Songs } from "../types";
 import axios from "axios";
 
@@ -26,12 +24,6 @@ const Search: React.FC<{ searchTerm: string }> = ({ searchTerm }) => {
   return (
     <>
       <Layout>
-        <div className={styles.search}>
-          <form>
-            <FontAwesomeIcon icon={faSearch} />
-            <input type="text" placeholder="Search" value={value} onChange={updateValue} />
-          </form>
-        </div>
         <div>
           <p className={styles.font}>Artist</p>
           <div className={styles.index}>
