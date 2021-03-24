@@ -45,6 +45,17 @@ func initDB() *gorm.DB {
 	return db
 }
 
+func initLocalDB() *gorm.DB {
+	dns := "root:@tcp(127.0.0.1:3306)/sample?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
+	db.Set("gorm:table_options", "ENGINE=InnoDB")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return db
+}
+
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
