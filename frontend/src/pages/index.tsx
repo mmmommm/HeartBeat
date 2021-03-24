@@ -6,14 +6,11 @@ import { SongInfo } from "../components/SongInfo";
 import { Loading } from "../components/Loading";
 import axios from "axios";
 import { Artists, Songs } from "../types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Index: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [artists, setArtists] = React.useState<Artists>([]);
   const [songs, setSongs] = React.useState<Songs>([]);
-  const [value, setValue] = React.useState("");
   React.useEffect(() => {
     axios.get('http://localhost:8080/v1/artist')
       .then((res) => {
@@ -31,9 +28,6 @@ const Index: React.FC = () => {
   setTimeout(() => {
     setIsLoading(false)
   }, 1000);
-  const updateValue = (ev) => {
-    setValue(ev.target.value)
-  }
   return (
     <>
       <Layout>
