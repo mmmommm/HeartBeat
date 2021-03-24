@@ -27,7 +27,7 @@ const Index: React.FC = () => {
   }, []);
   setTimeout(() => {
     setIsLoading(false)
-  }, 2000);
+  }, 1000);
   return (
     <>
       <Layout>
@@ -46,7 +46,7 @@ const Index: React.FC = () => {
               </div>
             </div>
             <div>
-              <p className={styles.font}>Music index</p>
+              <p className={styles.font}>Song index</p>
               <div className={styles.index}>
                 {songs.map((song, i) => {
                   return (

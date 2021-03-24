@@ -24,3 +24,9 @@ func (r *RequestRepositoryImpl) Insert(request domain.Request) (int, error) {
 	}
 	return int(request.ID), nil
 }
+
+func (r *RequestRepositoryImpl) SelectAll() ([]domain.Request, error) {
+	var requests []domain.Request
+	result := r.db.Find(&requests)
+	return requests, result.Error
+}

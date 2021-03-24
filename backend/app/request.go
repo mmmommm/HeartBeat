@@ -18,3 +18,7 @@ func NewRequestApplication(repository repository.RequestRepository) RequestAppli
 func (u *RequestApplication) Insert(request domain.Request) (int, error) {
 	return u.requestRepository.Insert(request)
 }
+
+func (u *RequestApplication) GetAll() ([]domain.Request, error) {
+	return u.requestRepository.SelectAll()
+}

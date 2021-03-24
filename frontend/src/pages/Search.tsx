@@ -3,37 +3,29 @@ import styles from "../styles/pages/Search.module.scss";
 import { Layout } from "../components/Layout";
 import { ArtistInfo } from "../components/ArtistInfo";
 import { SongInfo } from "../components/SongInfo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Artists, Songs } from "../types";
+import axios from "axios";
 
-const filteredArtists = [
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-  {name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},{name: "zutomayo",img: "sample.png"},
-];
-
-const filteredSongs = [
-  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
-  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
-  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
-  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
-  {artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},{artist: "zutomayo",name: "サターン",img: "sample.png"},
-];
-
-const Search: React.FC = () => {
+const Search: React.FC<{ searchTerm: string }> = ({ searchTerm }) => {
+  const [value, setValue] = React.useState("");
+  const [filteredArtists, setFilteredArtists] = React.useState<Artists>([]);
+  const [filteredSongs, setFilteredSongs] = React.useState<Songs>([]);
+  const Search = () => {
+    axios.get(`http://localhost:8080/v1/artist/${value}`)
+      .then((res) => setFilteredArtists(res.data))
+      .catch(() => {
+        axios.get(`http://localhost:8080/v1/song/${value}`)
+          .then((res) => setFilteredSongs(res.data))
+      })
+  }
+  const updateValue = (ev) => {
+    setValue(ev.target.value)
+  }
   return (
     <>
       <Layout>
-        <div className={styles.search}>
-          <form action="">
-            <FontAwesomeIcon icon={faSearch} />
-            <input type="text" placeholder="検索" />
-          </form>
-        </div>
         <div>
-          <p className={styles.font}>Artist index</p>
+          <p className={styles.font}>Artist</p>
           <div className={styles.index}>
             {filteredArtists.map((artist, i) => {
               return (
@@ -43,7 +35,7 @@ const Search: React.FC = () => {
           </div>
         </div>
         <div>
-          <p className={styles.font}>Music index</p>
+          <p className={styles.font}>Song</p>
           <div className={styles.index}>
             {filteredSongs.map((song, i) => {
               return (

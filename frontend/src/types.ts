@@ -28,3 +28,5 @@ export type Request = {
   song?: string;
   content?: string;
 }
+
+export type Requests = Request[]

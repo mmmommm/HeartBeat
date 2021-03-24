@@ -45,6 +45,17 @@ func initDB() *gorm.DB {
 	return db
 }
 
+func initLocalDB() *gorm.DB {
+	dns := "root:@tcp(127.0.0.1:3306)/sample?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
+	db.Set("gorm:table_options", "ENGINE=InnoDB")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return db
+}
+
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
@@ -65,20 +76,16 @@ func main() {
 	db.AutoMigrate(&domain.Request{})
 	db.AutoMigrate(&domain.Song{})
 
-	e.GET("/", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, map[string]string{"ping": "pong"})
-	})
-
 	// artist
 	e.GET("/v1/artist", artistAPI.GetAllArtist)
-	// e.GET("/artist/statistics", artistAPI.GetStatistics)
-	// e.POST("/artist", artistAPI.CreateArtist)
-	// e.POST("/artists", artistAPI.ExportArtist)
+	e.GET("/v1/artist/:name", artistAPI.GetArtistByName)
 
 	// song
 	e.GET("/v1/song", songAPI.GetAllSong)
+	e.GET("/v1/song/:name", songAPI.GetSongByName)
 
 	// request
+	e.GET("v1/request", requestAPI.GetAllRequest)
 	e.POST("v1/request", requestAPI.CreateRequest)
 
 	port := os.Getenv("PORT")
