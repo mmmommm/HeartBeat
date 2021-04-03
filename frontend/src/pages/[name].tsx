@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { NextPage, GetServerSideProps } from 'next';
 import styles from "../styles/pages/Artist.module.scss";
 import { Layout } from "../components/Layout";
