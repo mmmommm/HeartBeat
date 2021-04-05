@@ -1,25 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../styles/pages/Search.module.scss";
-import { Layout } from "../components/Layout";
+import { Layout, SearchConditionContext } from "../components/Layout";
 import { ArtistInfo } from "../components/ArtistInfo";
 import { SongInfo } from "../components/SongInfo";
 import { Artists, Songs } from "../types";
 import axios from "axios";
 
-const Search: React.FC<{ searchTerm: string }> = ({ searchTerm }) => {
-  const [value, setValue] = React.useState("");
+const Search: React.VFC = () => {
+  const { state } = useContext(SearchConditionContext)
   const [filteredArtists, setFilteredArtists] = React.useState<Artists>([]);
   const [filteredSongs, setFilteredSongs] = React.useState<Songs>([]);
+  
   const Search = () => {
-    axios.get(`http://localhost:8080/v1/artist/${value}`)
+    axios.get(`http://localhost:8080/v1/artist/${state.value}`)
       .then((res) => setFilteredArtists(res.data))
       .catch(() => {
-        axios.get(`http://localhost:8080/v1/song/${value}`)
+        axios.get(`http://localhost:8080/v1/song/${state.value}`)
           .then((res) => setFilteredSongs(res.data))
       })
-  }
-  const updateValue = (ev) => {
-    setValue(ev.target.value)
   }
   return (
     <>
