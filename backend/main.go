@@ -77,15 +77,15 @@ func main() {
 	db.AutoMigrate(&domain.Song{})
 
 	// artist
-	e.GET("/v1/artist", artistAPI.GetAllArtist)
+	e.GET("/v1/artists", artistAPI.GetAllArtist)
 	e.GET("/v1/artist/:name", artistAPI.GetArtistByName)
-
+	e.GET("/v1/artist/latest", artistAPI.Latest)
 	// song
-	e.GET("/v1/song", songAPI.GetAllSong)
+	e.GET("/v1/songs", songAPI.GetAllSong)
 	e.GET("/v1/song/:name", songAPI.GetSongByName)
-
+	e.GET("/v1/song/latest", songAPI.Latest)
 	// request
-	e.GET("v1/request", requestAPI.GetAllRequest)
+	e.GET("v1/requests", requestAPI.GetAllRequest)
 	e.POST("v1/request", requestAPI.CreateRequest)
 
 	port := os.Getenv("PORT")

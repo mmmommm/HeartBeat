@@ -6,4 +6,5 @@ type SongRepository interface {
 	SelectByID(id int) (domain.Song, error)
 	SelectByName(name string) ([]domain.Song, error)
 	SelectAll() ([]domain.Song, error)
+	Latest() ([]domain.Song, error)
 }

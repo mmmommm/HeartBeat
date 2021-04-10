@@ -4,6 +4,7 @@ import (
 	"github.com/mmmommm/HeartBeat/app"
 
 	"net/http"
+	"fmt"
 
 	"github.com/labstack/echo/v4"
 )
@@ -36,8 +37,16 @@ func (h *ArtistHandler) GetAllArtist(c echo.Context) error {
 	return c.JSON(http.StatusOK, Artist)
 }
 
+func (h *ArtistHandler) Latest(c echo.Context) error {
+	Artist, err := h.artistApplication.GetLatest()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+	return c.JSON(http.StatusOK, Artist)
+}
+
 func (h *ArtistHandler) GetArtistByName(c echo.Context) error {
-	name := c.QueryParam("name")
+	name := c.Param("name")
 	if name != "" {
 		response, err := h.artistApplication.GetByName(name)
 		if err != nil {
@@ -47,6 +56,8 @@ func (h *ArtistHandler) GetArtistByName(c echo.Context) error {
 			return c.JSON(http.StatusNotFound, "not found")
 		}
 		return c.JSON(http.StatusOK, response)
+	} else {
+		fmt.Println("nameがないです")
 	}
 	return nil
 }

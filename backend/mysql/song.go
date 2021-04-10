@@ -29,8 +29,14 @@ func (r *SongRepositoryImpl) SelectAll() ([]domain.Song, error) {
 	return songRepository, result.Error
 }
 
+func (r *SongRepositoryImpl) Latest() ([]domain.Song, error) {
+	var songRepository []domain.Song
+	result := r.db.Order("updated_at desc").Find(&songRepository)
+	return songRepository, result.Error
+}
+
 func (r *SongRepositoryImpl) SelectByName(name string) ([]domain.Song, error) {
 	var songRepository []domain.Song
-	result := r.db.Where("name = ?", name).Find(&songRepository)
+	result := r.db.Where("name LIKE ?", "%"+name+"%").Find(&songRepository)
 	return songRepository, result.Error
 }
