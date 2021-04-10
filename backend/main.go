@@ -36,7 +36,7 @@ func initDB() *gorm.DB {
 		dbPwd  = mustGetEnv("DB_PASS")
 		dbName = mustGetEnv("DB_NAME")
 	)
-	dns := fmt.Sprintf("%s:%s@/%s", dbUser, dbPwd, dbName)
+	dns := fmt.Sprintf("%s:%s@/%s?parseTime=true", dbUser, dbPwd, dbName)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
 	if err != nil {
@@ -46,7 +46,7 @@ func initDB() *gorm.DB {
 }
 
 func initLocalDB() *gorm.DB {
-	dns := "root:@tcp(127.0.0.1:3306)/sample?charset=utf8mb4&parseTime=True&loc=Local"
+	dns := "root:@tcp(127.0.0.1:3306)/sample?charset=utf8mb4&parseTime=true&loc=Local"
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
 
@@ -85,8 +85,8 @@ func main() {
 	e.GET("/v1/song/:name", songAPI.GetSongByName)
 	e.GET("/v1/song/latest", songAPI.Latest)
 	// request
-	e.GET("v1/requests", requestAPI.GetAllRequest)
-	e.POST("v1/request", requestAPI.CreateRequest)
+	e.GET("/v1/requests", requestAPI.GetAllRequest)
+	e.POST("/v1/request", requestAPI.CreateRequest)
 
 	port := os.Getenv("PORT")
 	if port == "" {
