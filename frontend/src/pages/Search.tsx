@@ -50,9 +50,7 @@ const Search: React.VFC = () => {
           </div>
         </>
       ) : (
-        <div>
-          <Latest />
-        </div>
+        <Latest />
       )}
     </>
   );
