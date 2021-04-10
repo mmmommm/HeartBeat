@@ -36,8 +36,16 @@ func (h *SongHandler) GetAllSong(c echo.Context) error {
 	return c.JSON(http.StatusOK, Song)
 }
 
+func (h *SongHandler) Latest(c echo.Context) error {
+	Song, err := h.songApplication.GetLatest()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+	return c.JSON(http.StatusOK, Song)
+}
+
 func (h *SongHandler) GetSongByName(c echo.Context) error {
-	name := c.QueryParam("name")
+	name := c.Param("name")
 	if name != "" {
 		response, err := h.songApplication.GetByName(name)
 		if err != nil {

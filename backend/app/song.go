@@ -19,6 +19,10 @@ func (u *SongApplication) GetAll() ([]domain.Song, error) {
 	return u.songRepository.SelectAll()
 }
 
+func (u *SongApplication) GetLatest() ([]domain.Song, error) {
+	return u.songRepository.Latest()
+}
+
 func (u *SongApplication) GetByName(name string) ([]domain.Song, error) {
 	return u.songRepository.SelectByName(name)
 }
