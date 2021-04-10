@@ -3,10 +3,10 @@ import styles from "../styles/pages/index.module.scss";
 import axios from "axios";
 import { Requests } from "../types";
 
-const showRequest: React.FC = () => {
+const showRequest: React.VFC = () => {
   const [requests, setRequests] = React.useState<Requests>([]);
   React.useEffect(() => {
-    axios.get('http://localhost:8080/v1/request')
+    axios.get('http://localhost:8080/v1/requests')
       .then((res) => {
         const data = res.data
         setRequests(data)
