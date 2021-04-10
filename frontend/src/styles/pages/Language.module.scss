@@ -3,14 +3,10 @@
   justify-content: space-around;
   flex-wrap: wrap;
   height: 100%;
-  button {
+  div {
     vertical-align: middle;
-    background-color: transparent;
-    border: none;
     cursor: pointer;
-    outline: none;
     padding: 20px 0;
-    appearance: none;
     font-size: 48px;
     color: #3e1300;
     transition: all 1s;
