@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../../styles/pages/Song.module.scss";
 import { NextPage, GetServerSideProps } from "next";
-import { Layout } from "../../components/Layout";
 import { getSong } from "../../utils/api/song";
 import { markdownToHtml } from "../../utils/index";
 import { Song } from "../../types";
@@ -14,19 +13,17 @@ const Page: NextPage<Props> = (props) => {
   const { song } = props
 
   return (
-    <Layout>
-      <header className={styles.header}>
-        <p>{song.name}</p>
-        <p>{song.artist}</p>
-        <article>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: song.content || '✍ 本文を入力してください',
-            }}
-          />
-        </article>
-      </header>
-    </Layout>
+    <header className={styles.header}>
+      <p>{song.name}</p>
+      <p>{song.artist}</p>
+      <article>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: song.content || '✍ 本文を入力してください',
+          }}
+        />
+      </article>
+    </header>
   );
 };
 
