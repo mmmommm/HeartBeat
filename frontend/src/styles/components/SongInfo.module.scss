@@ -1,8 +1,11 @@
-.artist_card {
+.music_card {
   cursor: pointer;
   margin: 10px;
   background-color: #f7f4f2;
   border-radius: 20px;
   width: 200px;
   height: 200px;
+  p {
+    font-family: 'Cormorant Garamond',serif;
+  }
 }
