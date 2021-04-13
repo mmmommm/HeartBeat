@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import styles from "../styles/components/Artist.module.scss";
+import styles from "../styles/components/ArtistInfo.module.scss";
 import { Artist } from "../types";
+import Image from 'next/image';
 
 export const ArtistInfo: React.FC<{ artist: Artist }> = ({ artist }) => {
   return (
@@ -14,10 +15,13 @@ export const ArtistInfo: React.FC<{ artist: Artist }> = ({ artist }) => {
       passHref
     >
       <div className={styles.artist_card}>
-        <>
-          <img src={artist.img} alt="artist" />
-          <p>{artist.name}</p>
-        </>
+        <Image
+          src={`/artist/${artist?.name}.jpeg`}
+          alt="artist"
+          width={200}
+          height={200}
+        />
+        <p>{artist.name}</p>
       </div>
     </Link>
   );
