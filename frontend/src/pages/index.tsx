@@ -6,7 +6,7 @@ import { Loading } from "../components/Loading";
 import axios from "axios";
 import { Artists, Songs } from "../types";
 
-const Index: React.FC = () => {
+const Index: React.VFC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [artists, setArtists] = React.useState<Artists>([]);
   const [songs, setSongs] = React.useState<Songs>([]);

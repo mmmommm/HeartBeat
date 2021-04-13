@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router"
 import { SearchConditionContext } from "../pages/_app";
+import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 export const SearchForm = () => {
   const router = useRouter();
@@ -22,8 +23,13 @@ export const SearchForm = () => {
   return (
     <div className={styles.search_container}>
       <form className={styles.search_form}>
-        <label htmlFor="searchForm"><FontAwesomeIcon icon={faSearch} /></label>
-        <input type="text" placeholder="Search" ref={inputEl} onChange={updateValue} onFocus={() => onFocusForm()} />
+        <label htmlFor="searchForm">
+          <FontAwesomeIcon icon={faSearch} />
+          {inputEl.current?.value ? (
+            <span onClick={resetValue}><FontAwesomeIcon icon={faTimesCircle} /></span>
+          ) : (null)}
+          <input type="text" placeholder="Search" ref={inputEl} value={state?.value} onChange={updateValue} onFocus={() => onFocusForm()} />
+        </label>
       </form>
     </div>
   )
