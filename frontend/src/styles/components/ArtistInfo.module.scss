@@ -2,8 +2,13 @@
   cursor: pointer;
   margin: 10px;
   border-radius: 20px;
+  background-color: #f7f4f2;
   width: 200px;
   height: 200px;
+  img {
+    border-radius: 20px;
+    object-fit: cover;
+  }
   p {
     font-family: 'Cormorant Garamond',serif;
   }
