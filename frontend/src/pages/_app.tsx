@@ -61,17 +61,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
   const [state, dispatch] = useReducer(reducer, initialState)
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      const logEvent = (url) => {
-        analytics().setCurrentScreen(url);
-        analytics().logEvent('screen_view');
-      };
-      router.events.on('routeChangeComplete', logEvent);
-      logEvent(window.location.pathname);
-      return () => {
-        router.events.off('routeChangeComplete', logEvent);
-      };
-    }
+    const logEvent = (url) => {
+      analytics().setCurrentScreen(url);
+      analytics().logEvent('screen_view');
+    };
+    router.events.on('routeChangeComplete', logEvent);
+    logEvent(window.location.pathname);
+    return () => {
+      router.events.off('routeChangeComplete', logEvent);
+    };
   }, [])
   return (
     <>
