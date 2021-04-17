@@ -1,10 +1,13 @@
+@import '../variables.scss';
+
 .search_container {
   margin-left: 20px;
+  margin-top: 10px;
   .search_form {
     width: 240px;
     background-color: #fff;
     border-radius: 10px;
-    border: solid 1px #3e1300;
+    border: solid 1px var(--font-1);
     label {
       input {
         border: none;

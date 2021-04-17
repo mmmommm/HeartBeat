@@ -29,14 +29,16 @@ const SidebarHeader: React.VFC = () => {
 
 export const Sidebar: React.FC<{ navItems: NavItems }> = ({ navItems }) => {
   return (
-    <>
-      <SidebarHeader />
-      <SearchForm />
+    <div className={styles.container}>
+      <div className={styles.top}>
+        <SidebarHeader />
+        <SearchForm />
+      </div>
       <ul className={styles.sidebar_item}>
         {navItems.map((navItem, i) => {
           return <SidebarNavItem navItem={navItem} key={i} />;
         })}
       </ul>
-    </>
+    </div>
   );
 };
