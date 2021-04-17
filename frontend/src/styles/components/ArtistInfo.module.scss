@@ -1,9 +1,21 @@
+@import '../variables.scss';
+
+
 .artist_card {
   cursor: pointer;
   margin: 10px;
   border-radius: 20px;
+  background-color: var(--white-1);
   width: 200px;
   height: 200px;
+  @include mq(md) {
+    width: 100px;
+    height: 100px;
+  }
+  img {
+    border-radius: 20px;
+    object-fit: cover;
+  }
   p {
     font-family: 'Cormorant Garamond',serif;
   }

@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-
 	"github.com/mmmommm/HeartBeat/domain"
 	"github.com/mmmommm/HeartBeat/wire"
 
@@ -16,10 +15,6 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
-
-func init() {
-	http.HandleFunc("/", fmt.Println("hello"))
-}
 
 func mustGetEnv(k string) string {
 	err := godotenv.Load()
