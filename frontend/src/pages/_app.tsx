@@ -1,8 +1,10 @@
-import React, { createContext, useReducer } from "react";
+import React, { useEffect, createContext, useReducer } from "react";
 import { Sidebar } from "../components/Sidebar";
 import styles from "../styles/components/Layout.module.scss";
 import "../styles/global.scss";
 import { AppProps } from "next/app";
+import { analytics } from "../utils/firebase";
+import { useRouter } from "next/router";
 
 const navItems = [
   {
@@ -56,7 +58,21 @@ export const SearchConditionContext = createContext({} as {
 })
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter()
   const [state, dispatch] = useReducer(reducer, initialState)
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      const logEvent = (url) => {
+        analytics().setCurrentScreen(url);
+        analytics().logEvent('screen_view');
+      };
+      router.events.on('routeChangeComplete', logEvent);
+      logEvent(window.location.pathname);
+      return () => {
+        router.events.off('routeChangeComplete', logEvent);
+      };
+    }
+  }, [])
   return (
     <>
       <SearchConditionContext.Provider value={{ state, dispatch }}>
