@@ -17,6 +17,10 @@ import (
 	"gorm.io/gorm"
 )
 
+func init() {
+	http.HandleFunc("/", fmt.Println("hello"))
+}
+
 func mustGetEnv(k string) string {
 	err := godotenv.Load()
 	if err != nil {
@@ -64,7 +68,7 @@ func main() {
 	var db *gorm.DB
 	db = initDB()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3000/en-US", "http://localhost:3000"},
+		AllowOrigins: []string{"http://localhost:3000/en-US", "http://localhost:3000", "https://heart-beat-blue.vercel.app/"},
 		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
 	}))
 
