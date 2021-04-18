@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import styles from "../styles/pages/Search.module.scss";
 import { SearchConditionContext } from "../pages/_app";
 import { ArtistInfo } from "../components/ArtistInfo";
@@ -11,19 +11,16 @@ const Search: React.VFC = () => {
   const { state } = useContext(SearchConditionContext)
   const [filteredArtists, setFilteredArtists] = React.useState<Artists>([]);
   const [filteredSongs, setFilteredSongs] = React.useState<Songs>([]);
-  const search = () => {
-    if (state?.value !== "") {
+  useEffect(() => {
+    if (state?.value !== "" && state?.isEnter) {
       axios.get(`http://localhost:8080/v1/artist/${state?.value}`)
         .then((res) => setFilteredArtists(res.data))
         .catch(() => {
           axios.get(`http://localhost:8080/v1/song/${state?.value}`)
             .then((response) => setFilteredSongs(response.data))
         })
-        .finally(() => console.log("一致するアーティスト、曲がありません"))
-    } else {
-      console.log("検索欄が空です")
     }
-  }
+  }, [state?.isEnter])
   return (
     <>
       {state?.value ? (

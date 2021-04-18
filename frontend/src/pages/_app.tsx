@@ -22,21 +22,24 @@ const navItems = [
     as: "/Request",
     href: "/Request",
   },
-  {
-    name: "Language",
-    as: "/Language",
-    href: "/Language",
-  },
+  // {
+  //   name: "Language",
+  //   as: "/Language",
+  //   href: "/Language",
+  // },
 ];
 
 type State = {
   value: string;
+  isEnter: boolean;
 }
 type Action =
   | { type: 'SET', payload: string }
   | { type: 'CLEAR' }
+  | { type: 'FIRE', payload: boolean }
 const initialState = {
-  value: ""
+  value: "",
+  isEnter: false,
 }
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -47,6 +50,11 @@ const reducer = (state: State, action: Action) => {
       }
     case 'CLEAR':
       return initialState
+    case 'FIRE':
+      return {
+        ...state,
+        isEnter: action.payload
+      }
     default:
       return state
   }
