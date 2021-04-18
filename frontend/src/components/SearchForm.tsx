@@ -8,21 +8,25 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 export const SearchForm = () => {
   const router = useRouter();
-  const { state, dispatch } = useContext(SearchConditionContext)
+  const { state, dispatch } = useContext(SearchConditionContext);
   const updateValue = (ev) => {
-    dispatch({ type: 'SET', payload: ev.target.value })
+    dispatch({ type: 'SET', payload: ev.target.value });
   }
   const resetValue = () => {
-    dispatch({ type: 'CLEAR' })
+    dispatch({ type: 'CLEAR' });
   }
   const inputEl = useRef(null)
   const onFocusForm = () => {
     inputEl.current.focus();
     router.push("Search");
   }
+  const clickEnter = (e) => {
+    e.preventDefault();
+    dispatch({ type: 'FIRE', payload: true });
+  }
   return (
     <div className={styles.search_container}>
-      <form className={styles.search_form}>
+      <form className={styles.search_form} onSubmit={clickEnter}>
         <label htmlFor="searchForm">
           <FontAwesomeIcon icon={faSearch} />
           {inputEl.current?.value ? (

@@ -1,5 +1,6 @@
 import React, { useEffect, createContext, useReducer } from "react";
 import { Sidebar } from "../components/Sidebar";
+import { Footer } from "../components/Footer";
 import styles from "../styles/components/Layout.module.scss";
 import "../styles/global.scss";
 import { AppProps } from "next/app";
@@ -22,21 +23,24 @@ const navItems = [
     as: "/Request",
     href: "/Request",
   },
-  {
-    name: "Language",
-    as: "/Language",
-    href: "/Language",
-  },
+  // {
+  //   name: "Language",
+  //   as: "/Language",
+  //   href: "/Language",
+  // },
 ];
 
 type State = {
   value: string;
+  isEnter: boolean;
 }
 type Action =
   | { type: 'SET', payload: string }
   | { type: 'CLEAR' }
+  | { type: 'FIRE', payload: boolean }
 const initialState = {
-  value: ""
+  value: "",
+  isEnter: false,
 }
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -47,6 +51,11 @@ const reducer = (state: State, action: Action) => {
       }
     case 'CLEAR':
       return initialState
+    case 'FIRE':
+      return {
+        ...state,
+        isEnter: action.payload
+      }
     default:
       return state
   }
@@ -83,6 +92,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           </div>
         </div>
       </SearchConditionContext.Provider>
+      <Footer />
     </>
   );
 };
