@@ -3,8 +3,8 @@ package handler
 import (
 	"github.com/mmmommm/HeartBeat/app"
 
-	"net/http"
 	"fmt"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 )

@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/mmmommm/HeartBeat/domain"
+	"github.com/mmmommm/HeartBeat/wire"
 	"log"
 	"net/http"
 	"os"
-	"github.com/mmmommm/HeartBeat/domain"
-	"github.com/mmmommm/HeartBeat/wire"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -31,11 +31,17 @@ func mustGetEnv(k string) string {
 func initDB() *gorm.DB {
 	var err error
 	var (
-		dbUser = mustGetEnv("DB_USER")
-		dbPwd  = mustGetEnv("DB_PASS")
-		dbName = mustGetEnv("DB_NAME")
+		dbUser                 = mustGetEnv("DB_USER")
+		dbPwd                  = mustGetEnv("DB_PASS")
+		instanceConnectionName = mustGetEnv("INSTANCE_CONNECTION_NAME")
+		dbName                 = mustGetEnv("DB_NAME")
 	)
-	dns := fmt.Sprintf("%s:%s@/%s?parseTime=true", dbUser, dbPwd, dbName)
+	socketDir, isSet := os.LookupEnv("DB_SOCKET_DIR")
+	if !isSet {
+		socketDir = "/cloudsql"
+	}
+
+	dns := fmt.Sprintf("%s:%s@unix(/%s/%s)/%s?parseTime=true", dbUser, dbPwd, socketDir, instanceConnectionName, dbName)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
 	if err != nil {
@@ -45,10 +51,11 @@ func initDB() *gorm.DB {
 }
 
 func initLocalDB() *gorm.DB {
-	dns := "root:@tcp(127.0.0.1:3306)/sample?charset=utf8mb4&parseTime=true&loc=Local"
+	fmt.Println("local")
+	var dbPwd = mustGetEnv("DB_PASS")
+	dns := fmt.Sprintf("root:%s@tcp(127.0.0.1:3306)/go_sample?charset=utf8mb4&parseTime=True&loc=Local", dbPwd)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -60,12 +67,22 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	v := os.Getenv("RUNENV")
+
 	var db *gorm.DB
-	db = initDB()
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3000/en-US", "http://localhost:3000", "https://heart-beat-blue.vercel.app/"},
-		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
-	}))
+	if v == "production" {
+		db = initDB()
+		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowOrigins: []string{"https://heart-beat-blue.vercel.app"},
+			AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+		}))
+	} else {
+		db = initLocalDB()
+		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowOrigins: []string{"http://localhost:3000/en-US", "http://localhost:3000"},
+			AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+		}))
+	}
 
 	artistAPI := wire.InitArtistAPI(db)
 	songAPI := wire.InitSongAPI(db)
@@ -74,6 +91,10 @@ func main() {
 	db.AutoMigrate(&domain.Artist{})
 	db.AutoMigrate(&domain.Request{})
 	db.AutoMigrate(&domain.Song{})
+
+	e.GET("/", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]string{"hoge": "fuga"})
+	})
 
 	// artist
 	e.GET("/v1/artists", artistAPI.GetAllArtist)
