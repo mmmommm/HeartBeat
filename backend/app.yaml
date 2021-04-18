@@ -1,8 +1,0 @@
-runtime: go115
-
-env_variables:
-    DB_USER: "ryotakise"
-    DB_PASS: "9434Yakitori"
-    DB_NAME: "heart_beat"
-    INSTANCE_CONNECTION_NAME: "noted-hangout-310606:asia-northeast1:default"
-    RUNENV: "production"
