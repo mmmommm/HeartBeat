@@ -1,5 +1,6 @@
 import React, { useEffect, createContext, useReducer } from "react";
 import { Sidebar } from "../components/Sidebar";
+import { Footer } from "../components/Footer";
 import styles from "../styles/components/Layout.module.scss";
 import "../styles/global.scss";
 import { AppProps } from "next/app";
@@ -91,6 +92,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           </div>
         </div>
       </SearchConditionContext.Provider>
+      <Footer />
     </>
   );
 };
