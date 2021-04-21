@@ -9,14 +9,14 @@ export const Latest: React.FC = () => {
   const [latestArtists, setLatestArtists] = React.useState<Artists>([]);
   const [latestSongs, setLatestSongs] = React.useState<Songs>([]);
   React.useEffect(() => {
-    axios.get('http://localhost:8080/v1/artist/latest')
+    axios.get(`${process.env.server}/v1/artist/latest`)
       .then((res) => {
         const data = res.data
         setLatestArtists(data)
       })
   }, []);
   React.useEffect(() => {
-    axios.get('http://localhost:8080/v1/song/latest')
+    axios.get(`${process.env.server}/v1/song/latest`)
       .then((res) => {
         const data = res.data
         setLatestSongs(data)
