@@ -33,15 +33,10 @@ func initDB() *gorm.DB {
 	var (
 		dbUser                 = mustGetEnv("DB_USER")
 		dbPwd                  = mustGetEnv("DB_PASS")
-		instanceConnectionName = mustGetEnv("INSTANCE_CONNECTION_NAME")
 		dbName                 = mustGetEnv("DB_NAME")
+		instanceConnectionName = mustGetEnv("INSTANCE_CONNECTION_NAME")
 	)
-	socketDir, isSet := os.LookupEnv("DB_SOCKET_DIR")
-	if !isSet {
-		socketDir = "/cloudsql"
-	}
-
-	dns := fmt.Sprintf("%s:%s@unix(/%s/%s)/%s?parseTime=true", dbUser, dbPwd, socketDir, instanceConnectionName, dbName)
+	dns := fmt.Sprintf("%s:%s@unix(/cloudsql/%s)/%s", dbUser, dbPwd, instanceConnectionName, dbName)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
 	if err != nil {
@@ -53,7 +48,7 @@ func initDB() *gorm.DB {
 func initLocalDB() *gorm.DB {
 	fmt.Println("local")
 	var dbPwd = mustGetEnv("DB_PASS")
-	dns := fmt.Sprintf("root:%s@tcp(127.0.0.1:3306)/go_sample?charset=utf8mb4&parseTime=True&loc=Local", dbPwd)
+	dns := fmt.Sprintf("root:%s@/go_sample?parseTime=true", dbPwd)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
 	if err != nil {
@@ -67,7 +62,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	v := os.Getenv("RUNENV")
+	v := os.mustGetEnv("RUNENV")
 
 	var db *gorm.DB
 	if v == "production" {
