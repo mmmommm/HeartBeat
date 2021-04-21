@@ -46,7 +46,6 @@ func initDB() *gorm.DB {
 }
 
 func initLocalDB() *gorm.DB {
-	fmt.Println("local")
 	var dbPwd = mustGetEnv("DB_PASS")
 	dns := fmt.Sprintf("root:%s@/go_sample?parseTime=true", dbPwd)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
@@ -62,7 +61,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	v := os.mustGetEnv("RUNENV")
+	v := os.Getenv("RUNENV")
 
 	var db *gorm.DB
 	if v == "production" {
