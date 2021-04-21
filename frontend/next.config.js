@@ -1,6 +1,10 @@
 const path = require("path");
+const isProd = prod.env.NODE_ENV === "production";
 
 module.exports = {
+  env: {
+    server: isProd ? "noted-hangout-310606.an.r.appspot.com/" : "http://localhost:8080/"
+  },
   webpack(config, { isServer }) {
     if (!isServer) {
       config.node = {

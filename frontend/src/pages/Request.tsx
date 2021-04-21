@@ -26,7 +26,7 @@ const Request: React.VFC = () => {
     content: ev.target.value
   })
   const sendRequest = () => {
-    axios.post('http://localhost:8080/v1/request', {
+    axios.post(`${process.env.server}/v1/request`, {
       name: request.name,
       artist: request.artist,
       song: request.song,

@@ -6,7 +6,7 @@ import { Requests } from "../types";
 const showRequest: React.VFC = () => {
   const [requests, setRequests] = React.useState<Requests>([]);
   React.useEffect(() => {
-    axios.get('http://localhost:8080/v1/requests')
+    axios.get(`${process.env.server}/v1/requests`)
       .then((res) => {
         const data = res.data
         setRequests(data)
