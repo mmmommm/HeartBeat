@@ -5,7 +5,9 @@
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx",
     "dev": "next dev",
+    "dev:prod": "NODE_ENV=production next dev",
     "build": "next build",
+    "build:prod": "NODE_ENV=production next build",
     "start": "next start"
   },
   "dependencies": {

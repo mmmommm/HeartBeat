@@ -8,15 +8,15 @@ import { Artists, Songs } from "../types";
 import axios from "axios";
 
 const Search: React.VFC = () => {
-  const { state } = useContext(SearchConditionContext)
+  const { state } = useContext(SearchConditionContext);
   const [filteredArtists, setFilteredArtists] = React.useState<Artists>([]);
   const [filteredSongs, setFilteredSongs] = React.useState<Songs>([]);
   useEffect(() => {
     if (state?.value !== "" && state?.isEnter) {
-      axios.get(`http://localhost:8080/v1/artist/${state?.value}`)
+      axios.get(`${process.env.server}/v1/artist/${state?.value}`)
         .then((res) => setFilteredArtists(res.data))
         .catch(() => {
-          axios.get(`http://localhost:8080/v1/song/${state?.value}`)
+          axios.get(`${process.env.server}/v1/song/${state?.value}`)
             .then((response) => setFilteredSongs(response.data))
         })
     }
