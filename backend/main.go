@@ -36,7 +36,12 @@ func initDB() *gorm.DB {
 		dbName                 = mustGetEnv("DB_NAME")
 		instanceConnectionName = mustGetEnv("INSTANCE_CONNECTION_NAME")
 	)
-	dns := fmt.Sprintf("%s:%s@unix(/cloudsql/%s)/%s", dbUser, dbPwd, instanceConnectionName, dbName)
+
+	socketDir, isSet := os.LookupEnv("DB_SOCKET_DIR")
+	if !isSet {
+		socketDir = "/cloudsql"
+	}
+	dns := fmt.Sprintf("%s:%s@unix(/%s/%s)/%s?parseTime=true", dbUser, dbPwd, socketDir, instanceConnectionName, dbName)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
 	if err != nil {
@@ -67,7 +72,7 @@ func main() {
 	if v == "production" {
 		db = initDB()
 		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-			AllowOrigins: []string{"https://heart-beat-blue.vercel.app"},
+			AllowOrigins: []string{"https://heart-beat-blue.vercel.app/en-US", "https://heart-beat-mmmommm.vercel.app/en-US"},
 			AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
 		}))
 	} else {

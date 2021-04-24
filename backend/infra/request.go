@@ -1,4 +1,4 @@
-package mysql
+package infra
 
 import (
 	"github.com/mmmommm/HeartBeat/domain"

@@ -1,0 +1,11 @@
+[local]
+flavor=mysql:8.0
+host=127.0.0.1
+port=3306
+user=root
+
+[prod]
+flavor=mysql:8.0
+host=135.189.140.65
+port=3306
+user=heart_beat
