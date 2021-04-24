@@ -1,6 +1,9 @@
 test:
 	go test ./...
 
+serve:
+	go run main.go
+
 build: fmt
 	go build
 
