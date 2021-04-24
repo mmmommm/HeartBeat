@@ -11,7 +11,7 @@ export type Artist = {
   img: string;
 };
 
-export type Artists = Artist[]
+export type Artists = Artist[];
 
 export type Song = {
   artist: string;
@@ -20,7 +20,7 @@ export type Song = {
   img?: string;
 };
 
-export type Songs = Song[]
+export type Songs = Song[];
 
 export type Request = {
   name: string;
