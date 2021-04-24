@@ -67,7 +67,7 @@ func main() {
 	if v == "production" {
 		db = initDB()
 		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-			AllowOrigins: []string{"https://heart-beat-blue.vercel.app"},
+			AllowOrigins: []string{"https://heart-beat-blue.vercel.app/en-US", "https://heart-beat-mmmommm.vercel.app/en-US"},
 			AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
 		}))
 	} else {
