@@ -6,6 +6,6 @@ user=root
 
 [prod]
 flavor=mysql:8.0
-host=10.88.96.4
+host=135.189.140.65
 port=3306
 user=heart_beat

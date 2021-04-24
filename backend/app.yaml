@@ -10,4 +10,4 @@ handlers:
    script: auto
 
 entrypoint:
-    ./entry.sh
+  ./entry.sh
