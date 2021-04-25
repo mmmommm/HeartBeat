@@ -1,6 +1,7 @@
 package dto
 
 type ArtistBody struct {
-	Detail string `json:"detail"`
-	Name   string `json:"name"`
+	Name      string `json:"name"`
+	ViewCount string `json:"viewcount"`
+	Url       string `json:"url"`
 }
