@@ -9,5 +9,5 @@ cd /mysql
 sed -i "s/^schema=heart_beat$/schema=heart_beat/" ./schemas/heart_beat/.skeema
 $GOPATH/bin/skeema push -p"${DB_PASS}" prod
 
+echo "skeema push cmd ended"
 go run main.go
-echo "おわり"

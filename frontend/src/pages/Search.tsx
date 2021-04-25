@@ -5,7 +5,7 @@ import { ArtistInfo } from "../components/ArtistInfo";
 import { SongInfo } from "../components/SongInfo";
 import { Latest } from "../components/Latest";
 import { Artists, Songs } from "../types";
-import axios from "axios";
+import { Axios } from "../utils/axios";
 
 const Search: React.VFC = () => {
   const { state } = useContext(SearchConditionContext);
@@ -13,10 +13,10 @@ const Search: React.VFC = () => {
   const [filteredSongs, setFilteredSongs] = React.useState<Songs>([]);
   useEffect(() => {
     if (state?.value !== "" && state?.isEnter) {
-      axios.get(`${process.env.server}/v1/artist/${state?.value}`)
+      Axios.get(`/v1/artist/${state?.value}`)
         .then((res) => setFilteredArtists(res.data))
         .catch(() => {
-          axios.get(`${process.env.server}/v1/song/${state?.value}`)
+          Axios.get(`/v1/song/${state?.value}`)
             .then((response) => setFilteredSongs(response.data))
         })
     }

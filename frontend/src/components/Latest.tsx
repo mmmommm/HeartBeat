@@ -3,20 +3,20 @@ import styles from "../styles/components/Latest.module.scss";
 import { ArtistInfo } from "../components/ArtistInfo";
 import { SongInfo } from "../components/SongInfo";
 import { Artists, Songs } from "../types";
-import axios from "axios";
+import { Axios } from "../utils/axios";
 
 export const Latest: React.FC = () => {
   const [latestArtists, setLatestArtists] = React.useState<Artists>([]);
   const [latestSongs, setLatestSongs] = React.useState<Songs>([]);
   React.useEffect(() => {
-    axios.get(`${process.env.server}/v1/artist/latest`)
+    Axios.get("/v1/artist/latest")
       .then((res) => {
         const data = res.data
         setLatestArtists(data)
       })
   }, []);
   React.useEffect(() => {
-    axios.get(`${process.env.server}/v1/song/latest`)
+    Axios.get("/v1/song/latest")
       .then((res) => {
         const data = res.data
         setLatestSongs(data)

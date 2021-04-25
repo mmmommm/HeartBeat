@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/pages/Request.module.scss";
-import axios from "axios";
+import { Axios } from "../utils/axios";
 
 const Request: React.VFC = () => {
   const [request, setRequest] = React.useState({
@@ -26,7 +26,7 @@ const Request: React.VFC = () => {
     content: ev.target.value
   })
   const sendRequest = () => {
-    axios.post(`${process.env.server}/v1/request`, {
+    Axios.post("/v1/request", {
       name: request.name,
       artist: request.artist,
       song: request.song,
