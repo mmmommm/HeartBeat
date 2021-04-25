@@ -52,7 +52,7 @@ func initDB() *gorm.DB {
 
 func initLocalDB() *gorm.DB {
 	var dbPwd = mustGetEnv("DB_PASS")
-	dns := fmt.Sprintf("root:%s@/go_sample?parseTime=true", dbPwd)
+	dns := fmt.Sprintf("root:%s@/heart_beat?parseTime=true", dbPwd)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB")
 	if err != nil {
