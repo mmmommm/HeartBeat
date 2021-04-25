@@ -8,7 +8,8 @@ export type NavItems = NavItem[];
 export type Artist = {
   name: string;
   content?: string;
-  img: string;
+  viewcount?: number;
+  url: string;
 };
 
 export type Artists = Artist[];
@@ -17,7 +18,8 @@ export type Song = {
   artist: string;
   name: string;
   content?: string;
-  img?: string;
+  viewcount?: number;
+  url: string;
 };
 
 export type Songs = Song[];

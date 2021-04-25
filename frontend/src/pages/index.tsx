@@ -11,7 +11,7 @@ const Index: React.VFC = () => {
   const [artists, setArtists] = React.useState<Artists>([]);
   const [songs, setSongs] = React.useState<Songs>([]);
   React.useEffect(() => {
-    Axios.get("/v1/artist")
+    Axios.get("/v1/artists")
       .then((res) => {
         const data = res.data
         setArtists(data)
@@ -27,7 +27,6 @@ const Index: React.VFC = () => {
   setTimeout(() => {
     setIsLoading(false)
   }, 1000);
-  console.log(process.env.server)
   return (
     <>
       {isLoading ? (
