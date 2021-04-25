@@ -15,6 +15,10 @@ func NewArtistApplication(repository repository.ArtistRepository) ArtistApplicat
 	}
 }
 
+func (u *ArtistApplication) Insert(artist domain.Artist) (int, error) {
+	return u.artistRepository.Insert(artist)
+}
+
 func (u *ArtistApplication) GetAll() ([]domain.Artist, error) {
 	return u.artistRepository.SelectAll()
 }

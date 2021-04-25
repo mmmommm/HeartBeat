@@ -7,4 +7,5 @@ type ArtistRepository interface {
 	SelectByName(name string) ([]domain.Artist, error)
 	SelectAll() ([]domain.Artist, error)
 	Latest() ([]domain.Artist, error)
+	Insert(artist domain.Artist) (id int, err error)
 }

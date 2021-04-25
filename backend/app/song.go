@@ -15,6 +15,10 @@ func NewSongApplication(repository repository.SongRepository) SongApplication {
 	}
 }
 
+func (u *SongApplication) Insert(song domain.Song) (int, error) {
+	return u.songRepository.Insert(song)
+}
+
 func (u *SongApplication) GetAll() ([]domain.Song, error) {
 	return u.songRepository.SelectAll()
 }

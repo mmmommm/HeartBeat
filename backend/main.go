@@ -99,10 +99,12 @@ func main() {
 	e.GET("/v1/artists", artistAPI.GetAllArtist)
 	e.GET("/v1/artist/:name", artistAPI.GetArtistByName)
 	e.GET("/v1/artist/latest", artistAPI.Latest)
+	e.POST("/v1/artist", artistAPI.CreateArtist)
 	// song
 	e.GET("/v1/songs", songAPI.GetAllSong)
 	e.GET("/v1/song/:name", songAPI.GetSongByName)
 	e.GET("/v1/song/latest", songAPI.Latest)
+	e.POST("/v1/song", songAPI.CreateSong)
 	// request
 	e.GET("/v1/requests", requestAPI.GetAllRequest)
 	e.POST("/v1/request", requestAPI.CreateRequest)
