@@ -3,7 +3,7 @@ import styles from "../styles/pages/index.module.scss";
 import { ArtistInfo } from "../components/ArtistInfo";
 import { SongInfo } from "../components/SongInfo";
 import { Loading } from "../components/Loading";
-import axios from "axios";
+import { Axios } from "../utils/axios";
 import { Artists, Songs } from "../types";
 
 const Index: React.VFC = () => {
@@ -11,14 +11,14 @@ const Index: React.VFC = () => {
   const [artists, setArtists] = React.useState<Artists>([]);
   const [songs, setSongs] = React.useState<Songs>([]);
   React.useEffect(() => {
-    axios.get(`${process.env.server}/v1/artists`)
+    Axios.get("/v1/artist")
       .then((res) => {
         const data = res.data
         setArtists(data)
       })
   }, []);
   React.useEffect(() => {
-    axios.get(`${process.env.server}/v1/songs`)
+    Axios.get("/v1/songs")
       .then((res) => {
         const data = res.data
         setSongs(data)
@@ -27,6 +27,7 @@ const Index: React.VFC = () => {
   setTimeout(() => {
     setIsLoading(false)
   }, 1000);
+  console.log(process.env.server)
   return (
     <>
       {isLoading ? (

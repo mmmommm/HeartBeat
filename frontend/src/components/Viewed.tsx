@@ -3,20 +3,20 @@ import styles from "../styles/components/Viewed.module.scss";
 import { ArtistInfo } from "../components/ArtistInfo";
 import { SongInfo } from "../components/SongInfo";
 import { Artists, Songs } from "../types";
-import axios from "axios";
+import { Axios } from "../utils/axios";
 
 export const Latest: React.FC = () => {
   const [viewedArtists, setViewedArtists] = React.useState<Artists>([]);
   const [viewedSongs, setViewedSongs] = React.useState<Songs>([]);
   React.useEffect(() => {
-    axios.get(`${process.env.server}/v1/artist/viewed`)
+    Axios.get("/v1/artist/viewed")
       .then((res) => {
         const data = res.data
         setViewedArtists(data)
       })
   }, []);
   React.useEffect(() => {
-    axios.get(`${process.env.server}/v1/song/viewed`)
+    Axios.get("/v1/song/viewed")
       .then((res) => {
         const data = res.data
         setViewedSongs(data)
