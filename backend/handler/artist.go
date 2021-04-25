@@ -17,6 +17,21 @@ func NewArtistHandler(artistApplication app.ArtistApplication) ArtistHandler {
 	return ArtistHandler{artistApplication: artistApplication}
 }
 
+func (h *ArtistHandler) CreateArtist(c echo.Context) error {
+	artist := new(dto.ArtistBody)
+	c.Bind(artist)
+
+	id, err := h.artistApplication.Insert(domain.Artist{
+		Name:      artist.Name,
+		ViewCount: artist.ViewCount,
+		Url:       artist.Url,
+	})
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+	return c.JSON(http.StatusOK, id)
+}
+
 func (h *ArtistHandler) GetAllArtist(c echo.Context) error {
 	name := c.QueryParam("name")
 	if name != "" {

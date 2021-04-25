@@ -17,6 +17,14 @@ func NewArtistRepositoryImpl(DB *gorm.DB) repository.ArtistRepository {
 	}
 }
 
+func (r *ArtistRepositoryImpl) Insert(artist domain.Artist) (int, error) {
+	result := r.db.Create(&artist)
+	if result.Error != nil {
+		return 0, result.Error
+	}
+	return int(artist.ID), nil
+}
+
 func (r *ArtistRepositoryImpl) SelectByID(id int) (domain.Artist, error) {
 	var artistRepository domain.Artist
 	tx := r.db.First(&artistRepository, id)

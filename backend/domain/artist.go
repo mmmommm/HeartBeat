@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type Artist struct {
 	gorm.Model
-	Name   string `json:"name"`
-	Detail string `json:"detail"`
-	Image  string `json:"image"`
+	Name      string `json:"name"`
+	ViewCount string `json:"viewcount"`
+	Url       string `json:"url"`
 }
