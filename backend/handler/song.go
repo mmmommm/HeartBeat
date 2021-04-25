@@ -2,6 +2,8 @@ package handler
 
 import (
 	"github.com/mmmommm/HeartBeat/app"
+	"github.com/mmmommm/HeartBeat/domain"
+	"github.com/mmmommm/HeartBeat/handler/dto"
 
 	"net/http"
 
@@ -16,7 +18,7 @@ func NewSongHandler(songApplication app.SongApplication) SongHandler {
 	return SongHandler{songApplication: songApplication}
 }
 
-func (h *RequestHandler) CreateSong(c echo.Context) error {
+func (h *SongHandler) CreateSong(c echo.Context) error {
 	song := new(dto.SongBody)
 	c.Bind(song)
 
