@@ -16,6 +16,22 @@ func NewSongHandler(songApplication app.SongApplication) SongHandler {
 	return SongHandler{songApplication: songApplication}
 }
 
+func (h *RequestHandler) CreateSong(c echo.Context) error {
+	song := new(dto.SongBody)
+	c.Bind(song)
+
+	id, err := h.songApplication.Insert(domain.Song{
+		Name:      song.Name,
+		Artist:    song.Artist,
+		ViewCount: song.ViewCount,
+		Url:       song.Url,
+	})
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+	return c.JSON(http.StatusOK, id)
+}
+
 func (h *SongHandler) GetAllSong(c echo.Context) error {
 	name := c.QueryParam("name")
 	if name != "" {
