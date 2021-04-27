@@ -1,7 +1,6 @@
 @import '../variables.scss';
 
 .layout {
-  height: 100vh;
   display: flex;
   background-color: var(--white-2);
   @include mq(md) {
