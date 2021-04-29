@@ -29,7 +29,6 @@ const Page: NextPage<Props> = (props) => {
 export const getServerSideProps: GetServerSideProps = async({ params }) => {
   const name = params.name as string;
   const artist = getArtist(name);
-  console.log(artist)
   if (!artist) {
     console.error("artist not found")
   }
