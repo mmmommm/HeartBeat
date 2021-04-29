@@ -2,8 +2,7 @@ import axios from "axios";
 
 const resolvedServer = (() => {
   if(process.env.NODE_ENV === 'production') {
-    // return process.env.API_URL;
-    return 'noted-hangout-310606.an.r.appspot.com'
+    return process.env.API_URL;
   }
   return "http://localhost:8080";
 })();
