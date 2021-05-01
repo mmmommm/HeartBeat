@@ -8,7 +8,9 @@ const md = markdownIt({
 
 md.linkify.set({ fuzzyLink: false });
 
-export const markdownToHtml = (text: string): string => {
+const markdownToHtml = (text: string): string => {
   if (!(text && text.length)) return '';
   return md.render(text);
 };
+
+export default markdownToHtml;

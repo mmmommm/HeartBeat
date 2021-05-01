@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../styles/pages/Song.module.scss";
 import { NextPage, GetServerSideProps } from "next";
 import { getSong } from "../../utils/api/song";
-import { markdownToHtml } from "../../utils/index";
+// import { markdownToHtml } from "../../utils/index";
 import { Song } from "../../types";
+import markdownHtml from "zenn-markdown-html"
+import "zenn-content-css"
 
 type Props = {
   song: Song
@@ -11,7 +13,9 @@ type Props = {
 
 const Page: NextPage<Props> = (props) => {
   const { song } = props
-
+  useEffect(()=> {
+    import('zenn-embed-elements');
+  }, [])
   return (
     <header className={styles.header}>
       <p>{song.name}</p>
@@ -19,7 +23,7 @@ const Page: NextPage<Props> = (props) => {
       <article>
         <div
           dangerouslySetInnerHTML={{
-            __html: song.content || '✍ 本文を入力してください',
+            __html: song.content || 'no article',
           }}
         />
       </article>
@@ -33,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async({ params }) => {
   if (!song) {
     console.error("song not found")
   }
-  const content = markdownToHtml(song.content);
+  const content = markdownHtml(song.content);
   return {
     props: {
       song: {

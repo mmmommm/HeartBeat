@@ -20,9 +20,7 @@ const SidebarNavItem: React.FC<{ navItem: NavItem }> = ({ navItem }) => {
 const SidebarHeader: React.VFC = () => {
   return (
     <header className={styles.header}>
-      <Link href="/" passHref>
-        logo
-      </Link>
+      <Link href="/" passHref>　</Link>
     </header>
   );
 };
