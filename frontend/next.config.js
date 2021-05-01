@@ -9,6 +9,9 @@ module.exports = {
     }
     return config;
   },
+  env: {
+    API_URL_PROD: process.env.API_URL,
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },

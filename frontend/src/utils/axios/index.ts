@@ -1,10 +1,8 @@
 import axios from "axios";
 
 const resolvedServer = (() => {
-  console.log(process.env.NODE_ENV)
-  console.log(process.env.NEXT_PUBLIC_API_URL)
   if(process.env.NODE_ENV === 'production') {
-    return process.env.NEXT_PUBLIC_API_URL;
+    return process.env.API_URL_PROD;
   }
   return "http://localhost:8080";
 })();
