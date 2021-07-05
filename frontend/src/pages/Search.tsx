@@ -16,8 +16,9 @@ const Search: React.VFC = () => {
       Axios.get(`/v1/artist/${state?.value}`)
         .then((res) => setFilteredArtists(res.data))
         .then(() => {
-          Axios.get(`/v1/song/${state?.value}`)
-            .then((response) => setFilteredSongs(response.data))
+          Axios.get(`/v1/song/${state?.value}`).then((response) =>
+            setFilteredSongs(response.data)
+          );
         })
         .catch(() => alert("article not found"))
     }
@@ -31,9 +32,7 @@ const Search: React.VFC = () => {
             <p className={styles.font}>Artist</p>
             <div className={styles.index}>
               {filteredArtists.map((artist, i) => {
-                return (
-                  <ArtistInfo artist={artist} key={i} />
-                )
+                return <ArtistInfo artist={artist} key={i} />;
               })}
             </div>
           </div>
@@ -41,9 +40,7 @@ const Search: React.VFC = () => {
             <p className={styles.font}>Song</p>
             <div className={styles.index}>
               {filteredSongs.map((song, i) => {
-                return (
-                  <SongInfo song={song} key={i} />
-                )
+                return <SongInfo song={song} key={i} />;
               })}
             </div>
           </div>
