@@ -20,10 +20,10 @@ const Search: React.VFC = () => {
             setFilteredSongs(response.data)
           );
         })
-        .catch(() => alert("article not found"))
+        .catch(() => alert("article not found"));
     }
-  }, [state?.isEnter])
-  console.log(filteredArtists)
+  }, [state?.isEnter]);
+  console.log(filteredArtists);
   return (
     <>
       {filteredArtists ? (

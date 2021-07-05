@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  heartbeat-mysql:
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - heartbeat-mysql-data:/var/lib/mysql
+      - ../mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - heartbeat-network
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+volumes:
+  heartbeat-mysql-data:
+networks:
+  heartbeat-network:
+    driver: bridge
