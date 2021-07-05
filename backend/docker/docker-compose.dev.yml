@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  heartbeat-server:
+    image: registry.camph.net/heartbeat-server-dev:latest
+    container_name: heartbeat-server-dev
+    networks:
+      - microservices
+networks:
+  microservices:
+    external: true

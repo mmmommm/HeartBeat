@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/db:/docker-entrypoint-initdb.d
+      - ./mysql/db/mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: HeartBeat
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  api:
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+    env_file: .env
+    volumes:
+      - ./:/go/src/github.com/mmmommm/HeartBeat
+    ports:
+      - "1323:1323"
+    depends_on:
+      - db

@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  heartbeat-mysql:
+    container_name: heartbeat-mysql-prod
+    environment:
+      -  MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
