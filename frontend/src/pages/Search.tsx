@@ -15,15 +15,17 @@ const Search: React.VFC = () => {
     if (state?.value !== "" && state?.isEnter) {
       Axios.get(`/v1/artist/${state?.value}`)
         .then((res) => setFilteredArtists(res.data))
-        .catch(() => {
+        .then(() => {
           Axios.get(`/v1/song/${state?.value}`)
             .then((response) => setFilteredSongs(response.data))
         })
+        .catch(() => alert("article not found"))
     }
   }, [state?.isEnter])
+  console.log(filteredArtists)
   return (
     <>
-      {state?.value ? (
+      {filteredArtists ? (
         <>
           <div>
             <p className={styles.font}>Artist</p>

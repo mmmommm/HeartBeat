@@ -29,6 +29,6 @@ export type Request = {
   artist?: string;
   song?: string;
   content?: string;
-}
+};
 
-export type Requests = Request[]
+export type Requests = Request[];
